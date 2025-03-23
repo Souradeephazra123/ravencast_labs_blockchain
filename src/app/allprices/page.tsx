@@ -49,8 +49,7 @@ export default function Home() {
   console.log(prices);
   return (
     <div className="p-7  globalbg globalbgtext bg-gradient-to-r from-[#0d142100] via-black to-[#0D1421] min-h-screen">
-      <p className=" text-xl font-bold">All Prices</p>
-      {/* <div>{renderPrices()}</div> */}
+    
 
       <div className="container mx-auto p-4">
         {" "}
