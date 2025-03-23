@@ -40,10 +40,10 @@ export default function MainTable({
   return (
     <Table
       aria-label={label ?? "master-parameters"}
-      className={twMerge("w-full my-10  rounded-t-10  ", className ?? "")}
+      className={twMerge("w-full my-10  rounded-t-10 bg-gray-800 ", className ?? "")}
       style={style}
     >
-      <TableHeader className={twMerge("bg-table_col h-11 ", headerClassName ?? "")}>
+      <TableHeader className={twMerge("bg-table_col h-11 bg-gray-700", headerClassName ?? "")}>
         {columns.map((col, index) => (
           <Column
             key={col.id}

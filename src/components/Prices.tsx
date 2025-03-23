@@ -29,13 +29,6 @@ const Prices = ({ assets }) => {
     };
   }, [assets]);
 
-  //   const formatPrice = (price) => {
-  //     return new Intl.NumberFormat("en-US", {
-  //       style: "currency",
-  //       currency: "USD",
-  //     }).format(price);
-  //   };
-
   const formatPrice = (price) => {
     if (!price || Number.isNaN(Number(price))) return "N/A"; // Handle invalid prices
 
@@ -60,8 +53,6 @@ const Prices = ({ assets }) => {
     return values.length ? sum / values.length : 0;
   };
 
-  console.log("shortTermPrices", averagesSMAPrice);
-
   const longTermPrices = Object.entries(prices)
     .slice(0, 19)
     .reduce((acc, [key, value]) => {
@@ -74,22 +65,6 @@ const Prices = ({ assets }) => {
     const sum = values.reduce((acc, value) => acc + value, 0);
     return values.length ? sum / values.length : 0;
   };
-
-  //   useEffect(() => {
-  //     const smaPrice = averagesSMAPrice();
-  //     if (SMACalmap.has("averagesSMAPrice")) {
-  //       SMACalmap.set("averagesSMAPrice", formatPrice(smaPrice));
-  //     } else {
-  //       SMACalmap.set("averagesSMAPrice", formatPrice(smaPrice));
-  //     }
-
-  //     const lmaPrice = averageLongPrice();
-  //     if (SMACalmap.has("averageLongPrice")) {
-  //       SMACalmap.set("averageLongPrice", formatPrice(lmaPrice));
-  //     } else {
-  //       SMACalmap.set("averageLongPrice", formatPrice(lmaPrice));
-  //     }
-  //   }, [prices]);
 
   useEffect(() => {
     const smaPrice = averagesSMAPrice();
@@ -125,8 +100,49 @@ const Prices = ({ assets }) => {
   };
 
   return (
-    <div className=" p-7">
-      <p>Prices</p>
+    <div className=" p-7 globalbgtext bg-gradient-to-r from-[#0d142100] via-black to-[#0D1421] min-h-screen">
+      <header className="bg-black text-white shadow-md py-4">
+        <div className="container mx-auto flex justify-between items-center px-4">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="text-2xl font-bold tracking-wide text-blue-400"
+          >
+            CryptoTracker 🚀
+          </Link>
+
+          {/* Navigation Links */}
+          <nav className="hidden md:flex gap-16">
+            <Link
+              href="/"
+              className="hover:text-blue-400 transition duration-200"
+            >
+              Home
+            </Link>
+            <Link
+              href="/prices"
+              className="hover:text-blue-400 transition duration-200"
+            >
+              Prices
+            </Link>
+            <Link
+              href="/trades"
+              className="hover:text-blue-400 transition duration-200"
+            >
+              Trades
+            </Link>
+            
+          </nav>
+
+          
+          <Link
+            href="/"
+            className="bg-blue-500 px-4 py-2 rounded-lg font-bold shadow-md hover:scale-105 hover:bg-blue-600 transition-all"
+          >
+           Let's Explore
+          </Link>
+        </div>
+      </header>
 
       <div className="container mx-auto p-4">
         {" "}
@@ -143,11 +159,11 @@ const Prices = ({ assets }) => {
             .map(([key, value]) => (
               <div
                 key={key}
-                className="bg-white rounded-lg shadow-md p-4" // Added styling
+                className="bg-gradient-to-br from-[#1A1A2E] to-[#16213E] text-white rounded-lg p-4  border border-blue-500/30 hover:scale-105 transition-transform duration-200 shadow-lg " // Added styling
               >
-                <p className="text-lg font-medium">{key}</p>{" "}
+                <p className="text-xl font-semibold tracking-wide">{key}</p>{" "}
                 {/* Improved typography */}
-                <p className="text-gray-600">{formatPrice(value)}</p>
+                <p className="text-green-400">{formatPrice(value)}</p>
               </div>
             ))}
         </div>
@@ -156,24 +172,39 @@ const Prices = ({ assets }) => {
       <div className="flex justify-center items-center ">
         <Link
           href="/allprices"
-          className=" w-fit text-center bg-blue-300 p-2 rounded"
+          className=" w-fit text-center bg-blue-300 p-2  bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 rounded-lg font-bold shadow-md 
+    hover:scale-105 hover:shadow-lg transition-all duration-200"
         >
           See all Prices
         </Link>
       </div>
-      <div className=" flex flex-col  gap-4">
-        <p className=" text-xl font-bold">SMA Calculation:</p>
+      <div className="bg-[#1E1E1E] flex flex-col  gap-4 p-4 rounded-lg shadow-md">
+        <p className=" text-xl font-bold text-white">SMA Calculation:</p>
         <div className=" flex gap-16  items-center">
           <div>
             <h1 className="flex gap-5">
-              SMA Calculation: {formatPrice(averagesSMAPrice())}{" "}
+              SMA Calculation:{" "}
+              <span className="text-blue-400">
+                {formatPrice(averagesSMAPrice())}
+              </span>{" "}
             </h1>
             <h1 className="flex gap-2">
-              LMA Calculation: {formatPrice(averageLongPrice())}{" "}
+              LMA Calculation:{" "}
+              <span className="text-yellow-400">
+                {" "}
+                {formatPrice(averageLongPrice())}
+              </span>{" "}
             </h1>
           </div>
 
-          <button className={`flex gap-3 font-bold border-2 rounded-lg p-2`}>
+          <button
+            className={`flex gap-3 font-bold border-2 rounded-lg p-2  ${
+              formatPrice(averageLongPrice()) > formatPrice(averagesSMAPrice())
+                ? "bg-red-600 hover:bg-red-700 text-white"
+                : "bg-green-500 hover:bg-green-600 text-white"
+            }
+        transition-all duration-200 shadow-md`}
+          >
             {formatPrice(averageLongPrice()) > formatPrice(averagesSMAPrice())
               ? "Sell"
               : "Buy"}
@@ -185,10 +216,14 @@ const Prices = ({ assets }) => {
         </div>
       </div>
       <div className=" flex justify-center items-center mt-4">
-        <Link href={"/trades"} className="text-xl bg-amber-300 rounded p-2">
+        <Link
+          href={"/trades"}
+          className="text-xl p-2 bg-amber-400 px-6 py-2 rounded-lg font-bold shadow-md text-black
+    hover:scale-105 hover:shadow-lg transition-all duration-200"
+        >
           See trades here
         </Link>
-      </div>  
+      </div>
     </div>
   );
 };

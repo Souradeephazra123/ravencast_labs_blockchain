@@ -7,6 +7,7 @@ import MainTable from "./ui/table";
 import { AllTrades, toISTDate, toISTTime, tradeColumns } from "@/lib/tableinfo";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Trade {
   base: string;
@@ -135,32 +136,37 @@ const Trades = ({ assets, trade }) => {
             height={32}
             className="h-8 w-8"
           />
-          <h1 className="text-2xl font-bold tracking-wide">
-            Crypto Trades Dashboard
-          </h1>
+          <Link href={"/"} className="text-2xl font-bold tracking-wide">
+            Crypto Trades
+          </Link>
         </div>
         <span className="bg-green-500 text-sm px-2 py-1 rounded-full animate-pulse">
           LIVE
         </span>
       </header>
-      <p className=" text-2xl text-center font-bold">Trades</p>
+     
 
       <div>
-        <div className=" flex gap-5 items-center ">
-          <p className=" text-2xl font-bold">Name : {trade ?? "huobi"} </p>
-          <p
-            className=" text-sm text-blue-400 cursor-pointer"
-            onClick={() => setIsTradesOpen(true)}
-          >
-            See other trade also
-          </p>
-        </div>
-        <h2 className="text-xl font-bold mb-2">Last Trade</h2>
-        {lastTrade && (
-          <pre className="bg-transparent p-2 rounded-md overflow-x-auto">
-            {JSON.stringify(lastTrade, null, 2)} {/* Display last trade data */}
-          </pre>
-        )}
+        <section className="p-6">
+          <div className="bg-gray-800 p-4 rounded-lg shadow-md mb-6">
+            <div className=" flex gap-5 items-center mb-2">
+              <p className=" text-2xl font-bold">Name : {trade ? trade : "huobi"} </p>
+              <p
+                className=" text-sm text-blue-400 cursor-pointer"
+                onClick={() => setIsTradesOpen(true)}
+              >
+                See other trade also
+              </p>
+            </div>
+            <h2 className="text-xl font-bold mb-2">Last Trade</h2>
+            {lastTrade && (
+              <pre className="bg-transparent p-2 rounded-md overflow-x-auto">
+                {JSON.stringify(lastTrade, null, 2)}{" "}
+                {/* Display last trade data */}
+              </pre>
+            )}
+          </div>
+        </section>
 
         <h2 className="text-xl font-bold mt-4 mb-2">Trade History</h2>
 
@@ -174,7 +180,10 @@ const Trades = ({ assets, trade }) => {
               <>
                 {trades?.map((trade, index) => {
                   return (
-                    <Row key={index} className="border-b">
+                    <Row
+                      key={index}
+                      className="border-b border-gray-700 hover:bg-gray-900"
+                    >
                       <Cell className="py-2 pl-2 text-center">
                         {trade.exchange}
                       </Cell>
@@ -217,14 +226,14 @@ const Trades = ({ assets, trade }) => {
       {isTradeOpen && (
         <div
           id="modal"
-          className="fixed inset-0   backdrop-blur-xs flex items-center justify-center z-50 h-[100vh] overflow-y-auto"
+          className="fixed inset-0   backdrop-blur-xs flex items-center justify-center z-50 h-[100vh] overflow-y-auto "
         >
-          <div className="bg-white p-4 shadow-lg max-h-[80vh] overflow-y-auto rounded-lg max-w-[80vw] bg-opacity-90">
+          <div className="bg-white/20 p-4 shadow-lg max-h-[80vh] overflow-y-auto rounded-lg max-w-[80vw] bg-opacity-90  backdrop-blur-md border border-white/30">
             <div className=" flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold mb-2">List of Trades</h2>
               <IoClose
                 size={25}
-                color="black"
+                color="white"
                 onClick={() => setIsTradesOpen(false)}
                 className=" cursor-pointer"
               />
@@ -243,7 +252,7 @@ const Trades = ({ assets, trade }) => {
                         <Row
                           onAction={() => setIsTradesOpen(false)}
                           key={index}
-                          className="border-b cursor-pointer"
+                          className="border-b cursor-pointer border-gray-700 hover:bg-gray-900"
                           href={`/trades?trade=${trade.exchangeId}`}
                         >
                           <Cell className=" pl-2 text-center">
@@ -285,6 +294,9 @@ const Trades = ({ assets, trade }) => {
           </div>
         </div>
       )}
+      <footer className="px-6 py-4 border-t border-gray-700 flex items-center justify-center text-sm text-gray-400">
+        <p>© 2023 Crypto Dashboard. All rights reserved.</p>
+      </footer>
     </div>
   );
 };

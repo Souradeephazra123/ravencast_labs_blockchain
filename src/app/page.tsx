@@ -6,8 +6,7 @@ export default async function Home() {
   const Assets=await getAssets();
   console.log(Assets);
   return (
-    <div>
-      <header>Live cryptocurrency price data</header>
+    <div className="globalbg globaltext">
       <Prices assets={Assets} />
     </div>
   );
