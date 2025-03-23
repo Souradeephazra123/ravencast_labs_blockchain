@@ -1,70 +1,73 @@
-Cryptocurrency Price Tracker
+# Cryptocurrency Price Tracker
 
-📌 Project Overview
+📌 **Project Overview**
 
 This project is a Cryptocurrency Price Tracker that displays real-time cryptocurrency prices, calculates moving averages (SMA & LMA), and provides trade recommendations based on price trends.
 
 The application efficiently handles data using a circular buffer (deque) approach to maintain only the most recent 5 and 20 prices for SMA calculations, ensuring constant-time updates.
 
-🚀 Setup Instructions
+## 🚀 Setup Instructions
 
-1️⃣ Prerequisites
+### 1 Prerequisites
 
 Ensure you have the following installed:
 
-Node.js (v16 or later)
+- Node.js (v16 or later)
+- npm or yarn
 
-npm or yarn
+### 2️ Clone the Repository
 
-2️⃣ Clone the Repository
+```bash
+git clone <repository-url>
+cd cryptocurrency-price-tracker
+```
 
-  git clone <repository-url>
-  cd cryptocurrency-price-tracker
+### 3 Clone the Repository
 
-3️⃣ Install Dependencies
+#### Using npm:
 
-Using npm:
-
+```bash
 npm install
+```
 
-Using yarn:
+#### Using yarn
 
+```bash
 yarn install
+```
 
-4️⃣ Run the Application
+### 4 Run the Application
 
 To start the development server:
 
+```bash
 npm run dev
+```
 
 or
 
-yarn dev
+```bash
+yarn dev dev
+```
 
-The application will be available at http://localhost:3000.
 
-🛠️ Design Decisions
+The application will be available at [http://localhost:3000].
 
-Efficient Data Handling
 
-Implemented a circular buffer (deque) approach to store only the last 5 and 20 prices for SMA calculations.
+  🛠️ **Design Decisions** 
+### Efficient Data Handling
+Implemented a circular buffer (deque) approach to store only the last 5 and 20 prices for SMA calculations. This ensures that older values are automatically removed without unnecessary memory usage.
 
-This ensures that older values are automatically removed without unnecessary memory usage.
+### Responsive UI
+Used Tailwind CSS for styling. Implemented a grid layout to display prices efficiently across different screen sizes.
 
-Responsive UI
+#### _Trading Signals_
+* If LMA > SMA, the application suggests SELL.
+* If SMA > LMA, the application suggests BUY.
 
-Used Tailwind CSS for styling.
+## 📂 Project Structure
 
-Implemented a grid layout to display prices efficiently across different screen sizes.
-
-Trading Signals
-
-If LMA > SMA, the application suggests SELL.
-
-If SMA > LMA, the application suggests BUY.
-
-📂 Project Structure
-
+```bash
 📦 cryptocurrency-price-tracker
 ├── 📁 components      # Reusable UI components
 ├── 📁 pages           # Next.js pages (Landing Page, Trades, Prices, etc.)
@@ -72,48 +75,25 @@ If SMA > LMA, the application suggests BUY.
 ├── 📜 README.md       # Project documentation
 ├── 📜 package.json    # Project dependencies and scripts
 └── ...
+```
 
-📜 Assumptions
 
-The cryptocurrency price data comes from a reliable external API.
+## _📜 Assumptions_
+* The cryptocurrency price data comes from a reliable external API.
+* Prices are updated at a fixed interval (e.g., every few seconds).
+* The app only tracks a limited number of cryptocurrencies (e.g., top 20 by market cap).
+* The trade signals (BUY/SELL) are based on simple moving average (SMA) crossovers.
 
-Prices are updated at a fixed interval (e.g., every few seconds).
 
-The app only tracks a limited number of cryptocurrencies (e.g., top 20 by market cap).
 
-The trade signals (BUY/SELL) are based on simple moving average (SMA) crossovers.
+## 🎯 Future Enhancements
 
-📎 Submission Guidelines
+* Add real-time WebSocket updates for live price tracking.
 
-Repository: GitHub Repository Link
+* Implement user authentication for personalized tracking.
 
-Complete Source Code: Available in the repository.
-
-Documentation: This README.md includes:
-
-Setup and installation instructions.
-
-Steps to run the application.
-
-Explanation of design decisions and assumptions.
-
-🎯 Future Enhancements
-
-Add real-time WebSocket updates for live price tracking.
-
-Implement user authentication for personalized tracking.
-
-Include more advanced technical indicators (e.g., RSI, MACD).
+* Include more advanced technical indicators (e.g., RSI, MACD).
 
 💡 Author
 
-[Your Name] – Software Developer at JS Tigers 🚀
-
-
-
-
-
-
-
-
-
+[Souradeep Hazra] – Software Developer at JS Tigers 🚀
